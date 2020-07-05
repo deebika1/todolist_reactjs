@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -16,20 +17,25 @@
   </head>
 
   <body>
-    <div id="root">Hello JAVASCRIPT</div>
-
+    <div id="ishu"></div>
     <script type="text/babel">
-      const App = () => {
-        const [value, setValue] = React.useState("");
-        const [todo, setTodos] = React.useState([]);
-        //console.log(todo)
-        const adding = (index) => {
-          return setTodos(todo.concat([value])), setValue("");
+      const Inputs = () => {
+        const [value, setValue] = React.useState(" ");
+        const [todos, settodos] = React.useState([]);
+        const [todoindex, settodoindex] = React.useState([]);
+
+        const display = () => {
+          settodos(todos.concat([value]));
+          console.log(todos);
+          setValue("");
         };
-        const [background, setbackground] = React.useState("blue");
-        const Changecolor = (index) => {
-          return setbackground(background);
+        const remove = () => {
+          settodos(numbers.filter((value, key) => key !== i));
         };
+
+        const Button = ({ onClick, value }) => (
+          <button onClick={onClick}>{value}</button>
+        );
 
         return (
           <div>
@@ -38,26 +44,25 @@
               value={value}
               onChange={(event) => setValue(event.target.value)}
             />
-            <button onClick={adding}>Click me</button>
 
-            <ul style={{ listStyleType: "none" }}>
-              {todo.map((todos, index) => (
+            <button onClick={display}>clickme</button>
+            <ul>
+              {todos.map((todo, index) => (
                 <li
-                  onMouseEnter={() => {
-                    setbackground("red");
+                  key={index}
+                  onMouseEnter={() => settodoindex(index)}
+                  style={{
+                    background: index == todoindex ? "lightGreen" : "pink",
                   }}
-                  onClick={(event) => console.log(index, todo, background)}
-                  onMouseOut={() => setbackground("blue")}
-                  style={{ background: background }}
                   key={index}
                 >
-                  <input type="radio" />
-                  {todos}
+                  {todo}
                   <button
                     onClick={() =>
-                      setTodos(todo.filter((count, i) => index !== i))
+                      settodos(todos.filter((count, i) => index !== i))
                     }
                   >
+                    {" "}
                     &#10006;
                   </button>
                 </li>
@@ -66,7 +71,8 @@
           </div>
         );
       };
-      ReactDOM.render(<App />, document.getElementById("root"));
+
+      ReactDOM.render(<Inputs />, document.getElementById("ishu"));
     </script>
   </body>
 </html>
